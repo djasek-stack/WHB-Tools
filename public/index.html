@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Tools — The Wise Homebuyer Academy</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <img class="logo-hub" src="/logo.jpg" alt="The Wise Homebuyer Academy">
+  </div>
+</header>
+<main class="wrap">
+  <h1>Free tools for home buyers</h1>
+  <p class="tagline"><strong>Start here:</strong> pick a tool below. Each one is free — a short form
+  (first name and email) unlocks both tools on this device. No lender or agent will
+  call you unless you specifically ask us to share your information.</p>
+
+  <div class="tool-cards">
+    <a class="tool-card" href="/know-your-numbers">
+      <h3>Know Your Numbers</h3>
+      <p><strong>The form asks:</strong> your monthly pay, your monthly debts, how much
+      you have saved for a down payment, and what you pay in rent now — plus a few
+      optional details if you want to fine-tune.</p>
+      <p><strong>You get:</strong> the home price that actually fits your life (not just
+      what a lender would approve), your full monthly payment broken down, the cash
+      you'll need at closing, and how buying compares with renting over the years
+      you'll stay.</p>
+      <p class="go">Open Know Your Numbers →</p>
+    </a>
+    <a class="tool-card" href="/deal-analyzer">
+      <h3>Deal Analyzer</h3>
+      <p><strong>The form asks:</strong> the address of a home you're looking at, then
+      your income, debts, and down payment.</p>
+      <p><strong>You get:</strong> a plain-English verdict on that home — is the price in
+      line with the market, does the payment fit your budget, and is there room to
+      negotiate — backed by the property record and comparable sales.</p>
+      <p class="go">Open the Deal Analyzer →</p>
+    </a>
+  </div>
+
+  <footer class="site">
+    <p>The Wise Homebuyer Academy — independent education. No commissions. Just knowledge that puts you in control.</p>
+    <p><a class="privacy-link" href="https://thewisehomebuyer.com/privacy-policy">Privacy Policy</a></p>
+  </footer>
+</main>
+<script>
+  // Point the Privacy Policy link at the configured URL.
+  fetch('/api/config').then(function (r) { return r.json(); }).then(function (cfg) {
+    if (cfg && cfg.privacyPolicyUrl) {
+      document.querySelectorAll('a.privacy-link').forEach(function (a) { a.setAttribute('href', cfg.privacyPolicyUrl); });
+    }
+  }).catch(function () {});
+</script>
+</body>
+</html>

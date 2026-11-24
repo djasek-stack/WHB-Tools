@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Know Your Numbers — The Wise Homebuyer Academy</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-tool="know-your-numbers">
+<header class="site">
+  <div class="wrap">
+    <a class="backlink" href="/">← Back to all tools</a>
+    <div class="tool-head">
+      <img class="logo-tool" src="/logo.jpg" alt="The Wise Homebuyer Academy">
+      <h1>Know Your Numbers</h1>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+
+  <!-- Lead gate -->
+  <section id="gate" class="gate">
+    <h2>Know Your Numbers — free access</h2>
+    <p><strong>What it asks:</strong> your monthly pay, your monthly debts, how much you
+    have saved for a down payment, and what you pay in rent now.</p>
+    <p><strong>What you get:</strong> the home price that fits your life, your full monthly
+    payment broken down, the cash you'll need at closing, and how buying compares
+    with renting.</p>
+    <button type="button" id="gate-open" class="btn">Get free access</button>
+    <form id="gate-form" class="hidden" novalidate>
+      <label>First name
+        <input type="text" id="gate-first" autocomplete="given-name">
+      </label>
+      <label>Email
+        <input type="email" id="gate-email" autocomplete="email">
+      </label>
+      <label>Phone <span class="hint">(optional)</span>
+        <input type="tel" id="gate-phone" autocomplete="tel">
+      </label>
+      <div class="legal">
+        <p><strong>How your information is used:</strong> when you submit this form, we store
+        your name, email, and phone number (if you give it) so we can run the tools for
+        you and follow up about home buying education. If you check the box below, we may
+        also share your information with partner mortgage lenders, loan originators, real
+        estate agents and brokers, and other service partners, who may contact you about
+        their services.</p>
+        <p>By clicking “Unlock my free tools,” you agree that The Wise Homebuyer and — if you
+        check the box below — its partners may contact you by phone, text, and email,
+        including by automated, prerecorded, or artificial-voice calls and texts, at the
+        number and email you provide, even if your number is on a federal or state Do Not
+        Call list. Consent is not a condition of buying anything. Message and data rates
+        may apply. Reply STOP to any text to opt out.</p>
+        <p>We respect your privacy. No spam, ever.</p>
+        <p><a class="privacy-link" href="https://thewisehomebuyer.com/privacy-policy">Privacy Policy</a> ·
+        California residents: you may opt out of the sale or sharing of your personal
+        information — see the Privacy Policy for how, including the “Do Not Sell or Share
+        My Personal Information” option.</p>
+      </div>
+      <div class="checkline">
+        <input type="checkbox" id="gate-share">
+        <label for="gate-share">Yes, share my information with partner lenders and agents so they can contact me
+          <span class="hint">(optional — the tools unlock either way)</span></label>
+      </div>
+      <p class="form-error" id="gate-error"></p>
+      <button type="submit" class="btn">Unlock my free tools</button>
+    </form>
+  </section>
+
+  <!-- The tool -->
+  <section id="tool" class="hidden">
+    <form id="kyn-form">
+      <div class="card step">
+        <h2>Step 1 — About you, the borrower</h2>
+        <div class="grid2">
+          <div><label>Monthly pay <span class="hint">(before taxes, all income)</span>
+            <input type="number" id="in-pay" value="7000" min="0" inputmode="numeric"></label></div>
+          <div><label>Monthly debts <span class="hint">(car, cards, student loans — the minimum payments)</span>
+            <input type="number" id="in-debts" value="500" min="0" inputmode="numeric"></label></div>
+          <div><label>Down payment saved <span class="hint">($)</span>
+            <input type="number" id="in-down" value="20000" min="0" inputmode="numeric"></label></div>
+          <div><label>Current rent <span class="hint">($/month)</span>
+            <input type="number" id="in-rent" value="2000" min="0" inputmode="numeric"></label></div>
+        </div>
+      </div>
+
+      <div class="card step">
+        <h2>Step 2 — The loan and the home</h2>
+        <p id="rate-line"><strong>Today's average 30-year rate:</strong> loading…</p>
+        <p class="hint">30-year fixed, pre-filled with the national average so you never have to
+        guess a rate. If a lender has quoted you a rate, you can use yours instead in
+        Fine-tune below.</p>
+        <label>Price of a home you're looking at <span class="hint">(optional — we'll check it against your numbers)</span>
+          <input type="number" id="in-looking" placeholder="e.g. 300000" min="0" inputmode="numeric"></label>
+      </div>
+
+      <details class="finetune" id="finetune">
+        <summary>Show details — fine-tune the numbers</summary>
+        <h3>Your own rate quote</h3>
+        <label>Rate a lender quoted you <span class="hint">(%, leave blank to use the average)</span>
+          <input type="number" id="in-rate-override" step="0.01" min="0" placeholder="e.g. 6.25" inputmode="decimal"></label>
+        <button type="button" id="rate-clear" class="btn secondary small">Use the average instead</button>
+        <h3>Taxes &amp; insurance</h3>
+        <div class="grid2">
+          <div><label>Property tax rate <span class="hint">(% of price per year)</span>
+            <input type="number" id="in-tax" value="1.20" step="0.01" min="0" inputmode="decimal"></label></div>
+          <div><label>Home insurance <span class="hint">($/month)</span>
+            <input type="number" id="in-ins" value="100" min="0" inputmode="numeric"></label></div>
+          <div><label>PMI rate <span class="hint">(% of loan per year, while down is under 20%)</span>
+            <input type="number" id="in-pmi" value="0.50" step="0.01" min="0" inputmode="decimal"></label></div>
+        </div>
+        <h3>Cash to close</h3>
+        <label>Closing costs <span class="hint">(% of price)</span>
+          <input type="number" id="in-closing" value="3" step="0.1" min="0" inputmode="decimal"></label>
+        <h3>Rent vs. own</h3>
+        <div class="grid2">
+          <div><label>Years you'll stay
+            <input type="number" id="in-stay" value="5" min="1" max="30" inputmode="numeric"></label></div>
+          <div><label>Home appreciation <span class="hint">(% per year)</span>
+            <input type="number" id="in-appr" value="3" step="0.1" inputmode="decimal"></label></div>
+          <div><label>Rent increase <span class="hint">(% per year)</span>
+            <input type="number" id="in-rentinc" value="0" step="0.1" inputmode="decimal"></label></div>
+        </div>
+      </details>
+    </form>
+
+    <section class="results" id="results"></section>
+
+    <p class="disclaimer">Example only — not a rate quote, not a loan approval, and not financial
+    advice. Your actual rate, taxes, insurance, and PMI depend on your lender, your credit, and
+    the home you choose. Education from The Wise Homebuyer Academy: no commissions, just the math.</p>
+  </section>
+
+  <footer class="site">
+    <p><a class="privacy-link" href="https://thewisehomebuyer.com/privacy-policy">Privacy Policy</a> · The Wise Homebuyer Academy</p>
+  </footer>
+</main>
+<script src="/js/math.js"></script>
+<script src="/js/gate.js"></script>
+<script src="/js/kyn.js"></script>
+</body>
+</html>
