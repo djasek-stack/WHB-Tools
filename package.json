@@ -1,0 +1,1 @@
+{"description":"The Wise Homebuyer free tools: Know Your Numbers + Deal Analyzer, with a lead-capture gate.","engines":{"node":">=20"},"name":"whb-tools","private":true,"scripts":{"start":"node server.js"},"version":"1.0.0"}

@@ -1,0 +1,16 @@
+# Render Blueprint for the Wise Homebuyer tools.
+# In Render: New + -> Blueprint -> connect the repo holding these files.
+services:
+  - type: web
+    name: whb-tools
+    env: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: RENTCAST_API_KEY
+        sync: false
+      - key: CC360_WEBHOOK_URL
+        sync: false
+      - key: PRIVACY_POLICY_URL
+        sync: false
