@@ -33,22 +33,10 @@ body {
 /* Header: logo inside a white card */
 header.site { padding: 20px 0 4px; }
 header.site .wrap { padding-bottom: 0; }
-.logo-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  padding: 18px 22px;
-}
-.logo-hub { width: min(230px, 72%); height: auto; display: block; }
+.logo-hub { width: min(230px, 72%); height: auto; display: block; margin: 0 auto; }
 .logo-chip {
   display: inline-flex;
   align-items: center;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  padding: 6px 10px;
   flex: none;
 }
 .logo-tool { width: 52px; height: auto; display: block; }
