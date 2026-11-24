@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal Analyzer — The Wise Homebuyer Academy</title>
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body data-tool="deal-analyzer">
+<header class="site">
+  <div class="wrap">
+    <a class="backlink" href="/">← Back to all tools</a>
+    <div class="tool-head">
+      <img class="logo-tool" src="/logo.jpg" alt="The Wise Homebuyer Academy">
+      <h1>Deal Analyzer</h1>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+
+  <!-- Lead gate -->
+  <section id="gate" class="gate">
+    <h2>Deal Analyzer — free access</h2>
+    <p><strong>What it asks:</strong> the address of a home you're looking at, then your
+    income, debts, and down payment.</p>
+    <p><strong>What you get:</strong> a plain-English verdict on that home — is the price in
+    line with the market, does the payment fit your budget, and is there room to
+    negotiate — backed by the property record and comparable sales.</p>
+    <button type="button" id="gate-open" class="btn">Get free access</button>
+    <form id="gate-form" class="hidden" novalidate>
+      <label>First name
+        <input type="text" id="gate-first" autocomplete="given-name">
+      </label>
+      <label>Email
+        <input type="email" id="gate-email" autocomplete="email">
+      </label>
+      <label>Phone <span class="hint">(optional)</span>
+        <input type="tel" id="gate-phone" autocomplete="tel">
+      </label>
+      <div class="legal">
+        <p><strong>How your information is used:</strong> when you submit this form, we store
+        your name, email, and phone number (if you give it) so we can run the tools for
+        you and follow up about home buying education. If you check the box below, we may
+        also share your information with partner mortgage lenders, loan originators, real
+        estate agents and brokers, and other service partners, who may contact you about
+        their services.</p>
+        <p>By clicking “Unlock my free tools,” you agree that The Wise Homebuyer and — if you
+        check the box below — its partners may contact you by phone, text, and email,
+        including by automated, prerecorded, or artificial-voice calls and texts, at the
+        number and email you provide, even if your number is on a federal or state Do Not
+        Call list. Consent is not a condition of buying anything. Message and data rates
+        may apply. Reply STOP to any text to opt out.</p>
+        <p>We respect your privacy. No spam, ever.</p>
+        <p><a class="privacy-link" href="https://thewisehomebuyer.com/privacy-policy">Privacy Policy</a> ·
+        California residents: you may opt out of the sale or sharing of your personal
+        information — see the Privacy Policy for how, including the “Do Not Sell or Share
+        My Personal Information” option.</p>
+      </div>
+      <div class="checkline">
+        <input type="checkbox" id="gate-share">
+        <label for="gate-share">Yes, share my information with partner lenders and agents so they can contact me
+          <span class="hint">(optional — the tools unlock either way)</span></label>
+      </div>
+      <p class="form-error" id="gate-error"></p>
+      <button type="submit" class="btn">Unlock my free tools</button>
+    </form>
+  </section>
+
+  <!-- The tool -->
+  <section id="tool" class="hidden">
+    <div class="card step">
+      <h2>Step 1 — The property</h2>
+      <label>Home address
+        <input type="text" id="in-address" placeholder="Street, City, State ZIP" autocomplete="street-address">
+      </label>
+      <p><button type="button" id="lookup-btn" class="btn">Look up this home</button></p>
+      <p id="lookup-status" class="hint"></p>
+      <div id="report"></div>
+    </div>
+
+    <div class="card step">
+      <h2>Step 2 — Your numbers</h2>
+      <div class="grid2">
+        <div><label>Monthly income <span class="hint">(before taxes)</span>
+          <input type="number" id="in-income" value="12000" min="0" inputmode="numeric"></label></div>
+        <div><label>Monthly debts <span class="hint">(minimum payments)</span>
+          <input type="number" id="in-debts" value="600" min="0" inputmode="numeric"></label></div>
+        <div><label>Down payment <span class="hint">($)</span>
+          <input type="number" id="in-down" value="100000" min="0" inputmode="numeric"></label></div>
+        <div><label>Price you'd offer <span class="hint">($ — starts at the estimated value)</span>
+          <input type="number" id="in-offer" min="0" inputmode="numeric"></label></div>
+        <div><label>Interest rate <span class="hint">(%)</span>
+          <input type="number" id="in-rate" value="6.50" step="0.01" min="0" inputmode="decimal"></label></div>
+        <div><label>Loan term <span class="hint">(years)</span>
+          <input type="number" id="in-term" value="30" min="1" max="40" inputmode="numeric"></label></div>
+      </div>
+    </div>
+
+    <div class="card step">
+      <h2>Step 3 — The verdict</h2>
+      <div id="verdict"><p class="hint">Look up a home in Step 1 and your verdict will appear here.</p></div>
+      <div class="nextstep">
+        <h3>Your next step</h3>
+        <p>The average homebuyer who learns this math saves $20,000 to $50,000 on a purchase.
+        The full course walks through every step of it — pricing, the mortgage, and the
+        negotiation — and a free 1-on-1 coaching call can run your exact numbers with Dan.</p>
+        <p><a href="https://thewisehomebuyer.com">$997 Full Course</a> &nbsp;·&nbsp;
+        <a href="https://thewisehomebuyer.com/1-on-1">Free 1-on-1 Coaching</a></p>
+      </div>
+    </div>
+
+    <p class="disclaimer">Example only — not a rate quote, not an appraisal, and not a loan approval.
+    Property data comes from RentCast public records and automated estimates, which can be wrong;
+    verify before you offer. Where a seller's loan balance is shown, it is a modeled estimate from
+    the recorded loan amount, rate, and start date — not a payoff statement.</p>
+  </section>
+
+  <footer class="site">
+    <p><a class="privacy-link" href="https://thewisehomebuyer.com/privacy-policy">Privacy Policy</a> · The Wise Homebuyer Academy</p>
+  </footer>
+</main>
+<script src="/js/math.js"></script>
+<script src="/js/gate.js"></script>
+<script src="/js/da.js"></script>
+</body>
+</html>
