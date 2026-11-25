@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Self-Employed Income Qualifier — The Wise Homebuyer Academy</title>
+<style>
+  :root {
+    --navy: #003049; --steel: #669BBC; --gold: #FFDFA5; --gold-deep: #C99A2E;
+    --page: #FAF5EA; --ink: #2a283e; --muted: #6b6f7e; --line: #e6dfd2;
+    --green: #1e7d4f; --green-bg: #e5f4ec; --amber: #9a6b12; --amber-bg: #fdf3da;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--page); color: var(--ink); line-height: 1.5; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 48px; }
+  header { text-align: center; margin-bottom: 8px; }
+  header h1 { color: var(--navy); font-size: 1.75rem; line-height: 1.25; }
+  header p { color: var(--muted); max-width: 620px; margin: 8px auto 0; font-size: 1.02rem; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-top: 22px; box-shadow: 0 2px 10px rgba(0,48,73,.05); }
+  .card h2 { color: var(--navy); font-size: 1.3rem; display: flex; align-items: center; gap: 10px; }
+  .badge { background: var(--navy); color: var(--gold); width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: .95rem; flex: none; }
+  .card .sub { color: var(--muted); margin: 8px 0 18px; font-size: .97rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 8px 6px; vertical-align: middle; }
+  th { text-align: right; color: var(--navy); font-size: .92rem; }
+  th:first-child { text-align: left; }
+  td.lbl { font-size: .97rem; }
+  td.lbl small { display: block; color: var(--muted); font-size: .82rem; }
+  td.inp { width: 168px; }
+  input[type="text"], input[type="number"] { width: 100%; padding: 10px 12px; border: 1.5px solid #cfd6dd; border-radius: 9px; font-size: 1rem; text-align: right; background: #fff; color: var(--ink); }
+  input:focus { outline: none; border-color: var(--steel); box-shadow: 0 0 0 3px rgba(102,155,188,.25); }
+  .row-total td { border-top: 2px solid var(--navy); font-weight: 700; color: var(--navy); font-size: 1.05rem; }
+  .row-total td.val { text-align: right; }
+  .own { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: .97rem; flex-wrap: wrap; }
+  .own input { width: 90px; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 18px; margin-top: 4px; }
+  .fields label { display: block; font-size: .9rem; color: var(--navy); font-weight: 600; margin-bottom: 5px; }
+  .fields select { width: 100%; padding: 10px 12px; border: 1.5px solid #cfd6dd; border-radius: 9px; font-size: 1rem; background: #fff; color: var(--ink); }
+  .fields .hint { font-weight: 400; color: var(--muted); font-size: .8rem; display: block; margin-top: 4px; }
+  .support-out { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  @media (max-width: 640px) { .support-out { grid-template-columns: 1fr; } }
+  .support-out .cell { background: #f4f8fb; border: 1px solid #d8e6f0; border-radius: 11px; padding: 14px 16px; }
+  .support-out .cell .cap { color: var(--muted); font-size: .88rem; }
+  .support-out .cell .amt { font-size: 1.45rem; font-weight: 800; color: var(--navy); }
+  .result { margin-top: 18px; background: var(--green-bg); border: 1px solid #bfe3d0; border-radius: 11px; padding: 16px 18px; }
+  .result .big { font-size: 1.6rem; font-weight: 800; color: var(--navy); }
+  .result .per { color: var(--muted); font-size: .95rem; }
+  .note { margin-top: 12px; border-radius: 11px; padding: 12px 16px; font-size: .94rem; display: none; }
+  .note.warn { background: var(--amber-bg); border: 1px solid #ecd9a0; color: #6d4d0c; display: block; }
+  .months { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px 18px; }
+  .months label { display: block; font-size: .9rem; color: var(--navy); font-weight: 600; margin-bottom: 5px; }
+  .running { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 16px; font-size: .98rem; }
+  .running b { color: var(--navy); }
+  .summary { background: var(--navy); color: #fff; border-radius: 14px; padding: 26px 24px; margin-top: 22px; }
+  .summary h2 { color: var(--gold); font-size: 1.3rem; margin-bottom: 14px; }
+  .summary .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 640px) { .summary .cols { grid-template-columns: 1fr; } td.inp { width: 118px; } }
+  .summary .box { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); border-radius: 11px; padding: 16px; }
+  .summary .box .name { font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+  .summary .box .amt { font-size: 1.5rem; font-weight: 800; }
+  .summary .box .per { color: #c8d6e2; font-size: .9rem; }
+  .summary p.tip { margin-top: 16px; color: #dbe7f0; font-size: .95rem; }
+  .fineprint { color: var(--muted); font-size: .84rem; margin-top: 22px; text-align: center; }
+  .src { color: var(--steel); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Self-Employed Income Qualifier</h1>
+    <p>Lenders don't count what you <em>make</em> — they count what you can <em>document</em>. Run your numbers both ways lenders look at them: your tax returns, and your bank statements.</p>
+  </header>
+
+  <!-- SECTION 1: TAX RETURNS -->
+  <section class="card">
+    <h2><span class="badge">1</span> Your Tax Returns (Schedule C)</h2>
+    <p class="sub">Open your last two years of tax returns and copy these lines from <span class="src">Schedule C</span> of each return. This is the same math a lender's underwriter uses.</p>
+    <table>
+      <tr><th></th><th>Most recent year</th><th>Year before</th></tr>
+      <tr>
+        <td class="lbl">Net profit (or loss)<small>Schedule C, Line 31</small></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="net1" placeholder="0"></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="net2" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td class="lbl">+ Depreciation<small>Schedule C, Line 13 — lenders add this back</small></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="dep1" placeholder="0"></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="dep2" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td class="lbl">+ Depletion<small>Schedule C, Line 12 — added back</small></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="depl1" placeholder="0"></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="depl2" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td class="lbl">+ Amortization<small>From Form 4562, if you have one — added back</small></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="amort1" placeholder="0"></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="amort2" placeholder="0"></td>
+      </tr>
+      <tr>
+        <td class="lbl">− Meals<small>Schedule C, Line 24b — lenders subtract half of this</small></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="meals1" placeholder="0"></td>
+        <td class="inp"><input type="text" inputmode="decimal" id="meals2" placeholder="0"></td>
+      </tr>
+      <tr class="row-total">
+        <td>Qualifying income for the year</td>
+        <td class="val" id="yearTotal1">$0</td>
+        <td class="val" id="yearTotal2">$0</td>
+      </tr>
+    </table>
+    <div class="own">
+      <label for="ownPct">Your ownership share of the business:</label>
+      <input type="text" inputmode="decimal" id="ownPct" value="100">
+      <span>% &nbsp;(100 if it's all yours)</span>
+    </div>
+    <div class="result">
+      <div class="per">Qualifying income from your tax returns (two-year average)</div>
+      <div class="big" id="taxMonthly">$0 <span class="per">/ month</span></div>
+      <div class="per" id="taxAnnual">$0 / year</div>
+    </div>
+    <div class="note" id="trendNote"></div>
+  </section>
+
+  <!-- SECTION 2: BANK STATEMENTS -->
+  <section class="card">
+    <h2><span class="badge">2</span> Your Bank Statements (12 Months)</h2>
+    <p class="sub">Bank statement loans skip the tax returns. Add up the business deposits on each month's statement and enter them here. Count business deposits only — don't count transfers between your own accounts or loan money. The lender averages 12 months and counts <strong>65%</strong> of it as your income.</p>
+    <div class="months" id="months"></div>
+    <div class="running">
+      <span>Total deposits: <b id="depTotal">$0</b></span>
+      <span>Average per month: <b id="depAvg">$0</b></span>
+      <span>Months entered: <b id="depCount">0</b></span>
+    </div>
+    <div class="result">
+      <div class="per">Qualifying income from your bank statements (65% of average deposits)</div>
+      <div class="big" id="bankMonthly">$0 <span class="per">/ month</span></div>
+      <div class="per" id="bankAnnual">$0 / year</div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: WHAT IT SUPPORTS -->
+  <section class="card">
+    <h2><span class="badge">3</span> What This Income Supports</h2>
+    <p class="sub">Lenders generally keep your total housing payment near <strong>28% of your monthly income</strong>, and your housing payment plus your other monthly debts near <strong>36%</strong>. Here's the payment — and the home price — your documented income supports.</p>
+    <div class="fields">
+      <div>
+        <label for="incomeChoice">Use this income</label>
+        <select id="incomeChoice">
+          <option value="higher" selected>Higher of the two</option>
+          <option value="tax">Tax return income</option>
+          <option value="bank">Bank statement income</option>
+        </select>
+      </div>
+      <div>
+        <label for="debts">Your other monthly debts</label>
+        <input type="text" inputmode="decimal" id="debts" placeholder="0">
+        <span class="hint">Car payments, credit card minimums, student loans — what shows on a credit report. Not rent or utilities.</span>
+      </div>
+      <div>
+        <label for="down">Down payment ($)</label>
+        <input type="text" inputmode="decimal" id="down" placeholder="0">
+      </div>
+      <div>
+        <label for="rate">Interest rate (%)</label>
+        <input type="text" inputmode="decimal" id="rate" value="7">
+      </div>
+    </div>
+    <div class="support-out">
+      <div class="cell">
+        <div class="cap">Monthly housing payment it supports</div>
+        <div class="amt" id="supPayment">$0</div>
+        <div class="cap" id="supPaymentNote">Principal, interest, taxes, insurance (and mortgage insurance under 20% down)</div>
+      </div>
+      <div class="cell">
+        <div class="cap">Home price it supports</div>
+        <div class="amt" id="supPrice">$0</div>
+        <div class="cap" id="supPriceNote">With your down payment at your rate</div>
+      </div>
+    </div>
+    <div class="note" id="supportNote"></div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="summary">
+    <h2>Your Documented Income — Both Ways</h2>
+    <div class="cols">
+      <div class="box">
+        <div class="name">Tax return loans (conventional)</div>
+        <div class="amt" id="sumTax">$0/mo</div>
+        <div class="per" id="sumTaxYr">$0 / year</div>
+      </div>
+      <div class="box">
+        <div class="name">Bank statement loans</div>
+        <div class="amt" id="sumBank">$0/mo</div>
+        <div class="per" id="sumBankYr">$0 / year</div>
+      </div>
+    </div>
+    <p class="tip" id="sumTip">Fill in either section above and your documented income appears here. Most self-employed buyers qualify with whichever number is higher — each loan program has its own rules, rates, and down payment requirements.</p>
+  </section>
+
+  <p class="fineprint">Educational tool from The Wise Homebuyer Academy. This shows how lenders generally calculate self-employed income; it is not a loan approval, a quote, or financial advice. Your lender will verify your full file.</p>
+</div>
+
+<script>
+// CALC-START
+function computeTaxYear(net, dep, depl, amort, meals) {
+  return net + dep + depl + amort - 0.5 * meals;
+}
+function computeBankMonthly(deposits) {
+  if (!deposits.length) return 0;
+  var total = deposits.reduce(function (a, b) { return a + b; }, 0);
+  return (total / deposits.length) * 0.65;
+}
+function computeSupport(incomeMonthly, debts, down, ratePct) {
+  var front = 0.28 * incomeMonthly;
+  var back = 0.36 * incomeMonthly - debts;
+  var payment = Math.max(0, Math.min(front, back));
+  if (payment <= 0 || incomeMonthly <= 0) return { payment: 0, price: 0 };
+  var r = (ratePct / 100) / 12, n = 360;
+  var piFactor = r > 0 ? (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) : 1 / n;
+  function allIn(price) {
+    var loan = Math.max(0, price - down);
+    var mi = (price > 0 && down / price < 0.2) ? loan * 0.0055 / 12 : 0;
+    return loan * piFactor + price * 0.012 / 12 + price * 0.006 / 12 + mi;
+  }
+  var lo = 0, hi = 10000000;
+  if (allIn(hi) < payment) return { payment: payment, price: hi };
+  for (var i = 0; i < 80; i++) {
+    var mid = (lo + hi) / 2;
+    if (allIn(mid) < payment) lo = mid; else hi = mid;
+  }
+  return { payment: payment, price: Math.round(lo / 100) * 100 };
+}
+// CALC-END
+
+function num(id) {
+  var v = parseFloat(String(document.getElementById(id).value).replace(/[^0-9.\-]/g, ''));
+  return isNaN(v) ? 0 : v;
+}
+function money(n) {
+  var neg = n < 0;
+  var s = '$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+  return neg ? '(' + s + ')' : s;
+}
+
+var monthNames = ['Month 1','Month 2','Month 3','Month 4','Month 5','Month 6','Month 7','Month 8','Month 9','Month 10','Month 11','Month 12'];
+var monthsDiv = document.getElementById('months');
+monthNames.forEach(function (name, i) {
+  var d = document.createElement('div');
+  d.innerHTML = '<label for="m' + i + '">' + name + ' deposits</label><input type="text" inputmode="decimal" id="m' + i + '" placeholder="0">';
+  monthsDiv.appendChild(d);
+});
+
+function recalc() {
+  var own = num('ownPct');
+  if (own <= 0) own = 100;
+  var ownF = own / 100;
+
+  var y1 = computeTaxYear(num('net1'), num('dep1'), num('depl1'), num('amort1'), num('meals1')) * ownF;
+  var y2 = computeTaxYear(num('net2'), num('dep2'), num('depl2'), num('amort2'), num('meals2')) * ownF;
+  document.getElementById('yearTotal1').textContent = money(y1);
+  document.getElementById('yearTotal2').textContent = money(y2);
+
+  var has1 = ['net1','dep1','depl1','amort1','meals1'].some(function (id) { return document.getElementById(id).value.trim() !== ''; });
+  var has2 = ['net2','dep2','depl2','amort2','meals2'].some(function (id) { return document.getElementById(id).value.trim() !== ''; });
+  var taxAnnual = 0;
+  if (has1 && has2) taxAnnual = (y1 + y2) / 2;
+  else if (has1) taxAnnual = y1;
+  else if (has2) taxAnnual = y2;
+  var taxMonthly = taxAnnual / 12;
+  document.getElementById('taxMonthly').innerHTML = money(taxMonthly) + ' <span class="per">/ month</span>';
+  document.getElementById('taxAnnual').textContent = money(taxAnnual) + ' / year';
+
+  var note = document.getElementById('trendNote');
+  if (has1 && has2 && y1 < y2 && y2 > 0) {
+    note.className = 'note warn';
+    note.textContent = 'Heads up: your most recent year is lower than the year before. Lenders see declining income as a risk — many will use the lower year, or ask for proof the business has stabilized. The two-year average above is ' + money(taxMonthly) + '/mo; the most recent year alone is ' + money(y1 / 12) + '/mo.';
+  } else {
+    note.className = 'note';
+    note.textContent = '';
+  }
+
+  var deposits = [];
+  for (var i = 0; i < 12; i++) {
+    var el = document.getElementById('m' + i);
+    if (el.value.trim() !== '') deposits.push(num('m' + i));
+  }
+  var total = deposits.reduce(function (a, b) { return a + b; }, 0);
+  var avg = deposits.length ? total / deposits.length : 0;
+  var bankMonthly = computeBankMonthly(deposits);
+  var bankAnnual = bankMonthly * 12;
+  document.getElementById('depTotal').textContent = money(total);
+  document.getElementById('depAvg').textContent = money(avg);
+  document.getElementById('depCount').textContent = deposits.length;
+  document.getElementById('bankMonthly').innerHTML = money(bankMonthly) + ' <span class="per">/ month</span>';
+  document.getElementById('bankAnnual').textContent = money(bankAnnual) + ' / year';
+
+  var choice = document.getElementById('incomeChoice').value;
+  var useIncome = choice === 'tax' ? taxMonthly : choice === 'bank' ? bankMonthly : Math.max(taxMonthly, bankMonthly);
+  var sup = computeSupport(useIncome, num('debts'), num('down'), num('rate') || 7);
+  document.getElementById('supPayment').textContent = money(sup.payment);
+  document.getElementById('supPrice').textContent = money(sup.price);
+  document.getElementById('supPriceNote').textContent = useIncome > 0
+    ? 'Based on ' + money(useIncome) + '/mo documented income, ' + money(num('down')) + ' down, ' + (num('rate') || 7) + '% for 30 years'
+    : 'With your down payment at your rate';
+  var sNote = document.getElementById('supportNote');
+  if (useIncome > 0 && num('debts') > 0 && 0.36 * useIncome - num('debts') < 0.28 * useIncome) {
+    sNote.className = 'note warn';
+    sNote.textContent = 'Your other debts are what limit you here — not your income. Every $100/mo of debt you pay off frees up roughly $100/mo of housing payment. Paying down debts before you buy can raise the price you qualify for more than earning more would.';
+  } else {
+    sNote.className = 'note';
+    sNote.textContent = '';
+  }
+
+  document.getElementById('sumTax').textContent = money(taxMonthly) + '/mo';
+  document.getElementById('sumTaxYr').textContent = money(taxAnnual) + ' / year';
+  document.getElementById('sumBank').textContent = money(bankMonthly) + '/mo';
+  document.getElementById('sumBankYr').textContent = money(bankAnnual) + ' / year';
+
+  var tip = document.getElementById('sumTip');
+  if (taxMonthly > 0 && bankMonthly > 0) {
+    if (bankMonthly > taxMonthly) {
+      tip.textContent = 'Your bank statements document MORE income than your tax returns (' + money(bankMonthly) + '/mo vs ' + money(taxMonthly) + '/mo) — a common story when your CPA writes off everything possible. A bank statement loan may qualify you for more home. Each program has its own rules, rates, and down payment requirements.';
+    } else if (taxMonthly > bankMonthly) {
+      tip.textContent = 'Your tax returns document more income (' + money(taxMonthly) + '/mo) than the bank statement method (' + money(bankMonthly) + '/mo). A conventional loan using your tax returns is likely your stronger path. Each program has its own rules, rates, and down payment requirements.';
+    } else {
+      tip.textContent = 'Both methods document about the same income. Either loan path can work — compare rates and down payment requirements. Each program has its own rules.';
+    }
+  }
+}
+
+document.querySelectorAll('input').forEach(function (el) {
+  el.addEventListener('input', recalc);
+});
+document.getElementById('incomeChoice').addEventListener('change', recalc);
+recalc();
+</script>
+</body>
+</html>
