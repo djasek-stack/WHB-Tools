@@ -33,26 +33,19 @@ body {
 /* Header: logo inside a white card */
 header.site { padding: 20px 0 4px; }
 header.site .wrap { padding-bottom: 0; }
-.logo-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  padding: 18px 22px;
-}
-.logo-hub { width: min(230px, 72%); height: auto; display: block; }
+.logo-hub { width: min(300px, 82%); height: auto; display: block; margin: 0 auto; }
 .logo-chip {
   display: inline-flex;
   align-items: center;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  padding: 6px 10px;
   flex: none;
 }
 .logo-tool { width: 52px; height: auto; display: block; }
 .tool-head { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.tool-icon { width: 54px; height: 54px; object-fit: contain; }
+.tool-icon-lg { width: 46px; height: 46px; object-fit: contain; flex: none; }
+.tool-tag { color: #40657c; font-size: 1.02rem; margin: 2px 0 10px; }
+.tool-sub { color: var(--muted); font-size: 1.05rem; margin: 4px 0 16px; max-width: 640px; }
 .tool-head h1 { margin: 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.01em; color: var(--navy); }
 .backlink { display: inline-block; margin-bottom: 10px; color: var(--steel); text-decoration: none; font-weight: 700; }
 .backlink:hover { text-decoration: underline; }
