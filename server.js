@@ -413,6 +413,18 @@ function serveFile(res, filePath) {
   });
 }
 
+// Site files may live at the repo root (when uploaded via GitHub's front
+// page) or in public/ — the root copy wins when both exist. Only the
+// site's own files are resolved this way; server files and data/ are
+// never served.
+function pickSiteFile(rel) {
+  const rootPath = path.join(__dirname, rel);
+  if (fs.existsSync(rootPath) && fs.statSync(rootPath).isFile()) return rootPath;
+  const pubPath = path.join(PUBLIC_DIR, rel);
+  if (fs.existsSync(pubPath) && fs.statSync(pubPath).isFile()) return pubPath;
+  return null;
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   const pathname = decodeURIComponent(url.pathname);
@@ -435,19 +447,21 @@ const server = http.createServer(async (req, res) => {
       return handleLead(req, res);
     }
     if (req.method === 'GET') {
-      if (pathname === '/' || pathname === '/index.html') {
-        return serveFile(res, path.join(PUBLIC_DIR, 'index.html'));
+      const pageFor = {
+        '/': 'index.html', '/index.html': 'index.html',
+        '/know-your-numbers': 'know-your-numbers.html', '/know-your-numbers.html': 'know-your-numbers.html',
+        '/deal-analyzer': 'deal-analyzer.html', '/deal-analyzer.html': 'deal-analyzer.html',
+        '/self-employed-qualifier': 'self-employed-qualifier.html', '/self-employed-qualifier.html': 'self-employed-qualifier.html'
+      };
+      if (pageFor[pathname]) {
+        const page = pickSiteFile(pageFor[pathname]);
+        if (page) return serveFile(res, page);
       }
-      if (pathname === '/know-your-numbers' || pathname === '/know-your-numbers.html') {
-        return serveFile(res, path.join(PUBLIC_DIR, 'know-your-numbers.html'));
-      }
-      if (pathname === '/deal-analyzer' || pathname === '/deal-analyzer.html') {
-        return serveFile(res, path.join(PUBLIC_DIR, 'deal-analyzer.html'));
-      }
-      // Static assets, guarded against path traversal.
-      const filePath = path.join(PUBLIC_DIR, pathname);
-      if (filePath.startsWith(PUBLIC_DIR) && fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-        return serveFile(res, filePath);
+      // Static assets: only the site's css/js folders and logo, resolved
+      // root-first with the same fallback. Everything else 404s.
+      if (/^\/(css|js)\/[\w.-]+$/.test(pathname) || pathname === '/logo.jpg' || pathname === '/logo.png' || pathname === '/home-fit-icon.png' || pathname === '/affordability-icon.png') {
+        const asset = pickSiteFile(pathname.slice(1));
+        if (asset) return serveFile(res, asset);
       }
     }
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
